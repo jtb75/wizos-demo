@@ -29,3 +29,6 @@ Thumbs.db
 
 # Docker
 *.log
+
+# WizCLI binary (too large for GitHub)
+wizcli

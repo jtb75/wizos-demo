@@ -218,11 +218,19 @@ docker build --platform linux/amd64 ...
 WizOS images come with pre-configured `ENTRYPOINT`, so `CMD` should only contain arguments:
 
 ```dockerfile
-# Correct for WizOS images
+# Correct for WizOS images (Python/Node)
 CMD ["-m", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
 
 # Incorrect (will fail)
 CMD ["python3", "-m", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+```
+
+For **nginx-noshell** variants, the default ENTRYPOINT uses a shell script that requires a shell. When removing busybox/shell for hardening, you must override the ENTRYPOINT:
+
+```dockerfile
+# Required for nginx-noshell (no shell available)
+ENTRYPOINT []
+CMD ["nginx", "-g", "daemon off;"]
 ```
 
 ### Nginx Routing

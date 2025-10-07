@@ -17,4 +17,6 @@ RUN apk del wizos-keys wizos-apk-auth apk-tools busybox
 
 EXPOSE 80
 
-# nginx image already has correct CMD
+# Override entrypoint and use direct nginx command since shell is removed
+ENTRYPOINT []
+CMD ["nginx", "-g", "daemon off;"]
