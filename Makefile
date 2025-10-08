@@ -78,33 +78,33 @@ help:
 
 # Backend build targets
 backend-legacy:
-	docker build --platform linux/amd64 -f backend/Dockerfile.legacy -t wizos-backend:legacy backend/
+	docker build --platform linux/amd64 -t wizos-backend:legacy backend/legacy/
 
 backend-wizos:
-	docker build --platform linux/amd64 -f backend/Dockerfile.wizos -t wizos-backend:wizos backend/
+	docker build --platform linux/amd64 -t wizos-backend:wizos backend/wizos/
 
 backend-wizos-nopm:
-	docker build --platform linux/amd64 -f backend/Dockerfile.wizos-nopm -t wizos-backend:wizos-nopm backend/
+	docker build --platform linux/amd64 -t wizos-backend:wizos-nopm backend/wizos-nopm/
 
 backend-wizos-noshell:
-	docker build --platform linux/amd64 -f backend/Dockerfile.wizos-noshell -t wizos-backend:wizos-noshell backend/
+	docker build --platform linux/amd64 -t wizos-backend:wizos-noshell backend/wizos-noshell/
 
 # Frontend build targets
 frontend-legacy:
-	docker build --platform linux/amd64 -f frontend/Dockerfile.legacy -t wizos-frontend:legacy frontend/
+	docker build --platform linux/amd64 -t wizos-frontend:legacy frontend/legacy/
 
 frontend-wizos:
-	docker build --platform linux/amd64 -f frontend/Dockerfile.wizos -t wizos-frontend:wizos frontend/
+	docker build --platform linux/amd64 -t wizos-frontend:wizos frontend/wizos/
 
 frontend-wizos-nopm:
-	docker build --platform linux/amd64 -f frontend/Dockerfile.wizos-nopm -t wizos-frontend:wizos-nopm frontend/
+	docker build --platform linux/amd64 -t wizos-frontend:wizos-nopm frontend/wizos-nopm/
 
 frontend-wizos-noshell:
-	docker build --platform linux/amd64 -f frontend/Dockerfile.wizos-noshell -t wizos-frontend:wizos-noshell frontend/
+	docker build --platform linux/amd64 -t wizos-frontend:wizos-noshell frontend/wizos-noshell/
 
 # Apache build targets
 apache-legacy:
-	docker build --platform linux/amd64 -f apache-demo/Dockerfile.legacy -t wizos-apache:legacy apache-demo/
+	docker build --platform linux/amd64 -t wizos-apache:legacy apache-demo/legacy/
 
 apache-wizos:
 	@if [ -f .env ]; then \
@@ -112,7 +112,7 @@ apache-wizos:
 		docker build --platform linux/amd64 \
 			--secret id=WIZOS_CLIENT_ID,env=WIZOS_CLIENT_ID \
 			--secret id=WIZOS_CLIENT_SECRET,env=WIZOS_CLIENT_SECRET \
-			-f apache-demo/Dockerfile.wizos -t wizos-apache:wizos apache-demo/; \
+			-t wizos-apache:wizos apache-demo/wizos/; \
 	else \
 		echo "Error: .env file not found"; exit 1; \
 	fi
@@ -123,7 +123,7 @@ apache-wizos-nopm:
 		docker build --platform linux/amd64 \
 			--secret id=WIZOS_CLIENT_ID,env=WIZOS_CLIENT_ID \
 			--secret id=WIZOS_CLIENT_SECRET,env=WIZOS_CLIENT_SECRET \
-			-f apache-demo/Dockerfile.wizos-nopm -t wizos-apache:wizos-nopm apache-demo/; \
+			-t wizos-apache:wizos-nopm apache-demo/wizos-nopm/; \
 	else \
 		echo "Error: .env file not found"; exit 1; \
 	fi
@@ -134,75 +134,75 @@ apache-wizos-noshell:
 		docker build --platform linux/amd64 \
 			--secret id=WIZOS_CLIENT_ID,env=WIZOS_CLIENT_ID \
 			--secret id=WIZOS_CLIENT_SECRET,env=WIZOS_CLIENT_SECRET \
-			-f apache-demo/Dockerfile.wizos-noshell -t wizos-apache:wizos-noshell apache-demo/; \
+			-t wizos-apache:wizos-noshell apache-demo/wizos-noshell/; \
 	else \
 		echo "Error: .env file not found"; exit 1; \
 	fi
 
 # Nginx build targets
 nginx-legacy:
-	docker build --platform linux/amd64 -f nginx-demo/Dockerfile.legacy -t wizos-nginx:legacy nginx-demo/
+	docker build --platform linux/amd64 -t wizos-nginx:legacy nginx-demo/legacy/
 
 nginx-wizos:
-	docker build --platform linux/amd64 -f nginx-demo/Dockerfile.wizos -t wizos-nginx:wizos nginx-demo/
+	docker build --platform linux/amd64 -t wizos-nginx:wizos nginx-demo/wizos/
 
 nginx-wizos-nopm:
-	docker build --platform linux/amd64 -f nginx-demo/Dockerfile.wizos-nopm -t wizos-nginx:wizos-nopm nginx-demo/
+	docker build --platform linux/amd64 -t wizos-nginx:wizos-nopm nginx-demo/wizos-nopm/
 
 nginx-wizos-noshell:
-	docker build --platform linux/amd64 -f nginx-demo/Dockerfile.wizos-noshell -t wizos-nginx:wizos-noshell nginx-demo/
+	docker build --platform linux/amd64 -t wizos-nginx:wizos-noshell nginx-demo/wizos-noshell/
 
 # Backend scan targets
 scan-backend-legacy:
-	./wizcli docker scan --image wizos-backend:legacy --policy jtb75-vulns
+	./wizcli docker scan --image wizos-backend:legacy --policy jtb75-vulns --project 30443b5e-3996-562e-8c5c-178529e6ec98
 
 scan-backend-wizos:
-	./wizcli docker scan --image wizos-backend:wizos --policy jtb75-vulns
+	./wizcli docker scan --image wizos-backend:wizos --policy jtb75-vulns --project 30443b5e-3996-562e-8c5c-178529e6ec98
 
 scan-backend-wizos-nopm:
-	./wizcli docker scan --image wizos-backend:wizos-nopm --policy jtb75-vulns
+	./wizcli docker scan --image wizos-backend:wizos-nopm --policy jtb75-vulns --project 30443b5e-3996-562e-8c5c-178529e6ec98
 
 scan-backend-wizos-noshell:
-	./wizcli docker scan --image wizos-backend:wizos-noshell --policy jtb75-vulns
+	./wizcli docker scan --image wizos-backend:wizos-noshell --policy jtb75-vulns --project 30443b5e-3996-562e-8c5c-178529e6ec98
 
 # Frontend scan targets
 scan-frontend-legacy:
-	./wizcli docker scan --image wizos-frontend:legacy --policy jtb75-vulns
+	./wizcli docker scan --image wizos-frontend:legacy --policy jtb75-vulns --project 30443b5e-3996-562e-8c5c-178529e6ec98
 
 scan-frontend-wizos:
-	./wizcli docker scan --image wizos-frontend:wizos --policy jtb75-vulns
+	./wizcli docker scan --image wizos-frontend:wizos --policy jtb75-vulns --project 30443b5e-3996-562e-8c5c-178529e6ec98
 
 scan-frontend-wizos-nopm:
-	./wizcli docker scan --image wizos-frontend:wizos-nopm --policy jtb75-vulns
+	./wizcli docker scan --image wizos-frontend:wizos-nopm --policy jtb75-vulns --project 30443b5e-3996-562e-8c5c-178529e6ec98
 
 scan-frontend-wizos-noshell:
-	./wizcli docker scan --image wizos-frontend:wizos-noshell --policy jtb75-vulns
+	./wizcli docker scan --image wizos-frontend:wizos-noshell --policy jtb75-vulns --project 30443b5e-3996-562e-8c5c-178529e6ec98
 
 # Apache scan targets
 scan-apache-legacy:
-	./wizcli docker scan --image wizos-apache:legacy --policy jtb75-vulns
+	./wizcli docker scan --image wizos-apache:legacy --policy jtb75-vulns --project 30443b5e-3996-562e-8c5c-178529e6ec98
 
 scan-apache-wizos:
-	./wizcli docker scan --image wizos-apache:wizos --policy jtb75-vulns
+	./wizcli docker scan --image wizos-apache:wizos --policy jtb75-vulns --project 30443b5e-3996-562e-8c5c-178529e6ec98
 
 scan-apache-wizos-nopm:
-	./wizcli docker scan --image wizos-apache:wizos-nopm --policy jtb75-vulns
+	./wizcli docker scan --image wizos-apache:wizos-nopm --policy jtb75-vulns --project 30443b5e-3996-562e-8c5c-178529e6ec98
 
 scan-apache-wizos-noshell:
-	./wizcli docker scan --image wizos-apache:wizos-noshell --policy jtb75-vulns
+	./wizcli docker scan --image wizos-apache:wizos-noshell --policy jtb75-vulns --project 30443b5e-3996-562e-8c5c-178529e6ec98
 
 # Nginx scan targets
 scan-nginx-legacy:
-	./wizcli docker scan --image wizos-nginx:legacy --policy jtb75-vulns
+	./wizcli docker scan --image wizos-nginx:legacy --policy jtb75-vulns --project 30443b5e-3996-562e-8c5c-178529e6ec98
 
 scan-nginx-wizos:
-	./wizcli docker scan --image wizos-nginx:wizos --policy jtb75-vulns
+	./wizcli docker scan --image wizos-nginx:wizos --policy jtb75-vulns --project 30443b5e-3996-562e-8c5c-178529e6ec98
 
 scan-nginx-wizos-nopm:
-	./wizcli docker scan --image wizos-nginx:wizos-nopm --policy jtb75-vulns
+	./wizcli docker scan --image wizos-nginx:wizos-nopm --policy jtb75-vulns --project 30443b5e-3996-562e-8c5c-178529e6ec98
 
 scan-nginx-wizos-noshell:
-	./wizcli docker scan --image wizos-nginx:wizos-noshell --policy jtb75-vulns
+	./wizcli docker scan --image wizos-nginx:wizos-noshell --policy jtb75-vulns --project 30443b5e-3996-562e-8c5c-178529e6ec98
 
 # Push targets
 push-backend-legacy:
